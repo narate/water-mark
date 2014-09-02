@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # author : Narate Ketram
 # created date : 12-1-2014
 
@@ -27,13 +27,14 @@ function set_mark() {
   if [ -d $1 ]
   then
     cd $1
-    for f in *.jpg
+    for f in *.*
     do
       mkdir -p "../$OUTDIR"
       INAME="$f"
       width=`identify -format %w "$INAME"`
+      hight=`identify -format %h "$INAME"`
       convert -font Monaco -background none -fill white -gravity\
-        east -size ${width}x100 caption:"$(get_name) \n$USER $ $(date +%d/%m/%Y)"\
+        east -pointsize 20 -size ${width}x100 caption:"$(get_name) \n$USER $ $(date +%d/%m/%Y)"\
               "$INAME" +swap -gravity south -composite "../$OUTDIR/$INAME"
        echo "Marked ../$OUTDIR/$INAME"
     done
